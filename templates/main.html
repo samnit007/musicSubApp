@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Main</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Add icon library -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      table {
+        padding: 5px;
+      }
+
+      /* Style the header */
+      header {
+        background-color: skyblue;
+        padding: 30px;
+        text-align: center;
+        font-size: 35px;
+        color: black;
+      }
+
+      /* Container for flexboxes */
+      /* section {
+        display: -webkit-flex;
+        display: flex;
+      } */
+
+      /* Style the navigation menu */
+
+      /* Style the content */
+      .article {
+        -webkit-flex: 3;
+        -ms-flex: 3;
+        flex: 3;
+        background-color: gainsboro;
+        padding: 10px;
+      }
+
+      /* Style the footer */
+      footer {
+        background-color: skyblue;
+        padding: 10px;
+        text-align: center;
+        color: white;
+      }
+      .icon {
+        padding: 10px;
+        background: blanchedalmond;
+        color: black;
+        min-width: 50px;
+        text-align: center;
+      }
+      .input-field {
+        width: 100%;
+        padding: 10px;
+        outline: none;
+      }
+      .input-field:focus {
+        border: 2px solid rgb(136, 135, 222);
+      }
+      .btn {
+        background-color: blanchedalmond;
+        color: black;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 10%;
+        opacity: 0.6;
+      }
+      .btn:hover {
+        opacity: 1;
+      }
+      .btn1 {
+        background-color: blanchedalmond;
+        color: black;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 10%;
+        opacity: 0.6;
+      }
+
+      .btn1:hover {
+        opacity: 1;
+      }
+
+      .results {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+      @media (max-width: 600px) {
+        section {
+          -webkit-flex-direction: column;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h4>Welcome to Your Subscription Page</h4>
+      <p>Hello, {{ USER }}</p>
+      <script>
+        console.log(USER);
+      </script>
+    </header>
+
+    <section>
+      <div class="subscription">
+        <h1>Subscribed Music</h1>
+
+        <div>
+          <table style="width: 100%">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Image</th>
+                <th>Subscribed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for subscribed_user_data in sub_data %}
+              <tr>
+                <td>{{ subscribed_user_data['title'] }}</td>
+                <td>{{ subscribed_user_data['artist'] }}</td>
+                <td>{{ subscribed_user_data['year'] }}</td>
+                <td>
+                  <img
+                    src="{{ subscribed_user_data['image_url'] }}"
+                    alt="image"
+                    width="80px"
+                    height="80px"
+                    id="artist_image"
+                  />
+                </td>
+
+                <td>
+                  <button onclick="">Remove</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="query">
+        <div class=".article">
+          <form action="" method="POST">
+            <h1>Search Music</h1>
+            <div class="input-container">
+              <i class="fa fa-podcast icon"></i>
+              <input
+                class="input-field"
+                type="text"
+                placeholder="Title"
+                name="ttl"
+              />
+            </div>
+            <div class="input-container">
+              <i class="fa fa-clock-o icon"></i>
+              <input
+                class="input-field"
+                type="text"
+                placeholder="Year"
+                name="year"
+              />
+            </div>
+            <div class="input-container">
+              <i class="fa fa-user icon"></i>
+              <input
+                class="input-field"
+                type="text"
+                placeholder="Artist"
+                name="artist"
+              />
+            </div>
+            <button type="submit" class="btn">Query</button>
+          </form>
+        </div>
+
+        <div class="results">
+          <h5>Results</h5>
+          <div class="msg"><strong>{{ msg }}</strong></div>
+
+          <table style="width: 100%" id="subscribeTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Year</th>
+                <th>Image</th>
+                <th>Subscribe Option</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for music_listings in music_data.index %}
+              <form action="/subscribed" , method="POST">
+                <tr>
+                  <td>{{ music_data['title'][music_listings] }}</td>
+                  <td>{{ music_data['artist'][music_listings] }}</td>
+                  <td>{{ music_data['year'][music_listings] }}</td>
+                  <td>
+                    <img
+                      src="{{ music_data['s3_url'][music_listings] }}"
+                      alt="image"
+                      width="80px"
+                      height="80px"
+                      id="artist_image"
+                    />
+                  </td>
+                  <td>
+                    <button id="subscribe_button">Subscribe</button>
+                    <!-- <script>
+                      document
+                        .getElementById("subscribe_button")
+                        .addEventListener("click", marker);
+                      function subscription() {
+                        console.log("dekho dekho");
+
+                        var cells = document.querySelectorAll("tr");
+
+                        for (var cell of cells) {
+                          var cells = document.querySelectorAll("tr");
+                          cell.addEventListener("click", marker);
+                        }
+                      }
+
+                      function marker() {
+                        var table = document.getElementById("subscribeTable");
+                        if (table) {
+                          for (var i = 0; i < table.rows.length; i++) {
+                            table.rows[i].onclick = function () {
+                              tableText(this);
+                            };
+                          }
+                        }
+
+                        console.log(this.innerHTML);
+                      }
+                      function tableText(tableRow) {
+                        var title = tableRow.childNodes[1].innerHTML;
+                        var artist = tableRow.childNodes[3].innerHTML;
+                        var year = tableRow.childNodes[5].innerHTML;
+                        var image = document.getElementById("artist_image").src;
+                        var obj = {
+                          title: title,
+                          artist: artist,
+                          year: year,
+                          image: image,
+                        };
+                        console.log(obj);
+                        $.get("/get_subscribe_data/" + obj);
+                      }
+                    </script> -->
+                  </td>
+                </tr>
+              </form>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p><a href="/logout">Logout</a></p>
+    </footer>
+  </body>
+</html>

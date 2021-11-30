@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Add icon library -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      .input-container {
+        display: -ms-flexbox; /* IE10 */
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .icon {
+        padding: 10px;
+        background: burlywood;
+        color: black;
+        min-width: 50px;
+        text-align: center;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px;
+        outline: none;
+      }
+
+      .input-field:focus {
+        border: 2px solid burlywood;
+      }
+
+      /* Set a style for the submit button */
+      .btn {
+        background-color: bisque;
+        color: black;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+      }
+
+      .btn:hover {
+        opacity: 1;
+      }
+      /* Set a style for the submit button */
+      .btn1 {
+        background-color: brown;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+      }
+
+      .btn1:hover {
+        opacity: 1;
+      }
+    </style>
+    <title>Log In</title>
+  </head>
+  <body>
+    <form
+      action="{{ url_for('login') }}"
+      method="POST"
+      style="max-width: 400px; margin: auto"
+    >
+      <h2>Welcome</h2>
+      <h3>Subscribe to your favourite music right here</h3>
+      <h5>If Already a user:</h5>
+
+      <div class="msg">{{ msg }}</div>
+
+      <div class="input-container">
+        <i class="fa fa-envelope icon"></i>
+        <input
+          class="input-field"
+          type="text"
+          placeholder="Email"
+          name="email"
+        />
+      </div>
+      <div class="input-container">
+        <i class="fa fa-key icon"></i>
+        <input
+          class="input-field"
+          type="password"
+          placeholder="Password"
+          name="psw"
+        />
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+      <h5>Else click below to register:</h5>
+      <p><a href="/register">Register</a></p>
+    </form>
+  </body>
+</html>
